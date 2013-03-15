@@ -135,24 +135,25 @@ enyo.kind({
   },
 
   lockGroupClick: function(inSender, e) {
+    //if it's a toggle, send an unlock, wait 30 seconds, and send the lock again
+    //FIXME client is responsible for re-enabling the lock--that's bad
     if( this.$.lockGroup.value == "toggle" )
     {
       this.$.lockGroup.value = "u";
-      this.sendToLock();
+      this.sendServerCommand();
       enyo.job(
         "toggleOff",
         enyo.bind( this, function() {
           this.$.lockGroup.value = "l";
-          this.sendToLock();
+          this.sendServerCommand();
         }),
         30000 );
     } else if(this.jamLock) {
-      this.sendToLock();
+      this.sendServerCommand();
     }
   },
 
-  // FIXME: needs a better name.
-  sendToLock: function() {
+  sendServerCommand: function() {
     this.$.scrim.show();
     this.currentStatus = this.$.lockGroup.value;
     this.lockAjaxEndpoint = new enyo.Ajax({url: this.url});
