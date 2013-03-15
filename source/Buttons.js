@@ -9,18 +9,46 @@ enyo.kind({
       kind:  "onyx.RadioGroup",
       components: [
         {
-          name:     "lockedButton",
-          content:  "Locked",
+          name:     "lockAll",
+          content:  "Lock All",
           classes:  "onyx-affirmative hsltogglebuttons",
-          value:    "lock",
-          onclick:  "emitLockedClick"
+          value:    "lockAll",
+          onclick:  "emitLockAllClick"
         },
         {
-          name:     "unlockedButton",
-          content:  "Unlocked",
-          classes:  "onyx-negative hsltogglebuttons",
-          value:    "unlock",
-          onclick:  "emitUnlockedClick"
+          name:     "lockFront",
+          content:  "Lock Front",
+          classes:  "onyx-affirmative hsltogglebuttons",
+          value:    "lockFront",
+          onclick:  "emitLockFrontClick"
+        },
+        {
+          name:     "lockBack",
+          content:  "Lock Back",
+          classes:  "onyx-affirmative hsltogglebuttons",
+          value:    "lockBack",
+          onclick:  "emitLockBackClick"
+        },
+        {
+          name:     "unlockAll",
+          content:  "Unlock All",
+          classes:  "onyx-affirmative hsltogglebuttons",
+          value:    "unlockAll",
+          onclick:  "emitUnlockAllClick"
+        },
+        {
+          name:     "unlockFront",
+          content:  "Unlock Front",
+          classes:  "onyx-affirmative hsltogglebuttons",
+          value:    "unlockFront",
+          onclick:  "emitUnlockFrontClick"
+        },
+        {
+          name:     "unlockBack",
+          content:  "Unlock Back",
+          classes:  "onyx-affirmative hsltogglebuttons",
+          value:    "unlockBack",
+          onclick:  "emitUnlockBackClick"
         },
         {
           name: "quickToggle",
@@ -34,51 +62,83 @@ enyo.kind({
 
   ],
 
-  /*
-   * Unlock button clicked
-   */
-  emitUnlockedClick: function() {
-    this.unlocked();
+  emitLockAllClick: function() {
+    this.$.lockAll.tap();
     this.emitClick();
+
+    /*
+    this.$.lockAll.setDisabled(true);
+    this.$.lockFront.setDisabled(true);
+    this.$.lockBack.setDisabled(true);
+
+    this.$.unlockAll.setDisabled(false);
+    this.$.unlockBack.setDisabled(false);
+    this.$.lockFront.setDisabled(false);
+    */
+
+    this.value = "lock";
   },
 
-  /*
-   * Lock button clicked
-   */
-  emitLockedClick: function() {
-    this.locked();
+  emitLockFrontClick: function() {
+    this.$.lockFront.tap();
     this.emitClick();
+    //this.$.lockFront.setDisabled(true);
+    //this.$.unlockFront.setDisabled(false);
+    this.value = "lock-front";
+  },
+
+  emitLockBackClick: function() {
+    this.$.lockBack.tap();
+    this.emitClick();
+    //this.$.lockBack.setDisabled(true);
+    //this.$.unlockBack.setDisabled(false);
+    this.value = "lock-back";
+  },
+
+  emitUnlockAllClick: function() {
+    this.$.unlockAll.tap();
+    this.emitClick();
+
+    /*
+    this.$.unlockAll.setDisabled(true);
+    this.$.unlockFront.setDisabled(true);
+    this.$.unlockBack.setDisabled(true);
+
+    this.$.lockAll.setDisabled(false);
+    this.$.lockFront.setDisabled(false);
+    this.$.lockBack.setDisabled(false);
+    */
+
+    this.value = "unlock";
+  },
+
+  emitUnlockFrontClick: function() {
+    this.$.unlockFront.tap();
+    this.emitClick();
+    //this.$.unlockFront.setDisabled(true);
+    //this.$.lockFront.setDisabled(false);
+    this.value = "unlock-front";
+  },
+
+  emitUnlockBackClick: function() {
+    this.$.unlockBack.tap();
+    this.emitClick();
+    //this.$.unlockBack.setDisabled(true);
+    //this.$.lockBack.setDisabled(false);
+    this.value = "unlock-back";
   },
 
   /*
    * Toggle button clicked
    */
   emitToggleClick: function() {
+    this.$.quickToggle.tap();
     this.value = "toggle";
     this.emitClick();
   },
 
   emitClick: function() {
     this.bubble("click");
-  },
-
-  /*
-   * Call to set buttongroup to locked
-   */
-  locked: function() {
-    this.$.lockedButton.tap();
-    this.$.quickToggle.setDisabled(false);
-    this.render();
-    this.value = "l";
-  },
-
-  /*
-   * Call to set buttongroup to unlocked
-   */
-  unlocked: function() {
-    this.$.unlockedButton.tap();
-    this.$.quickToggle.setDisabled(true);
-    this.render();
-    this.value = "u";
   }
+
 });

@@ -56,7 +56,7 @@ enyo.kind({
     //TODO server side should be responsible for this
     this.jamLock = true;
 
-    // This refreshes the screen every 30 seconds
+    // This refreshes the screen every 5 seconds
     setInterval( enyo.bind(this, this.getCurrentStatus), 5000);
 
     // In webOS this makes the loading screen go away
@@ -101,10 +101,8 @@ enyo.kind({
   updateColor: function() {
     var color;
     if(this.currentStatus == "1"){
-      this.$.lockGroup.locked();
       color = "red";
     } else {
-      this.$.lockGroup.unlocked();
       color = "green";
     }
     document.body.style.backgroundColor = color;
@@ -121,6 +119,8 @@ enyo.kind({
   },
 
   statusRetrieved: function(inRequest, inResponse) {
+    console.log("got new status.");
+
     var lockStatus = inResponse.open ? "0" : "1";
 
     if(lockStatus.length > 0) {
@@ -139,12 +139,12 @@ enyo.kind({
     //FIXME client is responsible for re-enabling the lock--that's bad
     if( this.$.lockGroup.value == "toggle" )
     {
-      this.$.lockGroup.value = "u";
+      this.$.lockGroup.value = "unlock";
       this.sendServerCommand();
       enyo.job(
         "toggleOff",
         enyo.bind( this, function() {
-          this.$.lockGroup.value = "l";
+          this.$.lockGroup.value = "lock";
           this.sendServerCommand();
         }),
         30000 );
@@ -160,11 +160,6 @@ enyo.kind({
     this.lockAjaxEndpoint.go({user: this.username, pass: this.password, cmd: this.$.lockGroup.value});
     this.lockAjaxEndpoint.handleAs = "text";
     this.jamLock = false;
-
-    // This is a band-aid, yay band-aids
-    // Basically, there's a delay between when OAC unlocks and when it
-    // admits it's unlocked. This will help make that less noticeable.
-    setTimeout( enyo.bind(this,this.getCurrentStatus), 10000);
   },
 
   showPopup: function() {
