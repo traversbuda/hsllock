@@ -49,12 +49,15 @@ enyo.kind({
 
     this.loadLoginData();
 
+    this.getCurrentStatus();
+
     // Blocking timer to prevent people from busting the server jamming on
     // buttons
+    //TODO server side should be responsible for this
     this.jamLock = true;
 
     // This refreshes the screen every 30 seconds
-    setInterval( enyo.bind(this, this.getCurrentStatus), 30000);
+    setInterval( enyo.bind(this, this.getCurrentStatus), 5000);
 
     // In webOS this makes the loading screen go away
     // FIXME: Can we make this go away with phonegap.js?

@@ -9,7 +9,7 @@ enyo.kind( {
 
   components: [
     {
-      content: "If you need a login to the HeatSyncLabs system, please contact @rrrrrrrix. Leave Server URL blank unless you know what you're doing."
+      content: "If you need a login to the HeatSyncLabs system, please contact @willbradley. Leave Server URL blank unless you know what you're doing."
     },
     {
       name: "errorDiv",
