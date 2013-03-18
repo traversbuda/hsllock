@@ -57,11 +57,21 @@ enyo.kind( {
       style: "width: 100%",
       content: "Save",
       onclick: "checkLogin"
+    },
+    {
+      kind: "onyx.Button",
+      style: "width: 100%",
+      content: "Cancel",
+      onclick: "cancelLogin"
     }
   ],
 
   events: {
     onLoginChanged: ""
+  },
+
+  cancelLogin: function(inSender) {
+    this.hide();
   },
 
   checkLogin: function(inSender) {
