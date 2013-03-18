@@ -51,11 +51,18 @@ enyo.kind({
           onclick:  "emitUnlockBackClick"
         },
         {
-          name: "quickToggle",
-          content: "Open for 30 seconds",
+          name: "openFront",
+          content: "Open Front",
           classes: "hsltogglebuttons",
-          value: "toggle",
-          onclick: "emitToggleClick"
+          value: "openFront",
+          onclick: "emitOpenFrontClick"
+        },
+        {
+          name: "openBack",
+          content: "Open Back",
+          classes: "hsltogglebuttons",
+          value: "openBack",
+          onclick: "emitOpenBackClick"
         }
       ]
     }
@@ -126,6 +133,22 @@ enyo.kind({
     //this.$.unlockBack.setDisabled(true);
     //this.$.lockBack.setDisabled(false);
     this.value = "unlock-back";
+  },
+
+  emitOpenFrontClick: function() {
+    this.$.openFront.tap();
+    this.emitClick();
+    //this.$.unlockBack.setDisabled(true);
+    //this.$.lockBack.setDisabled(false);
+    this.value = "open-front";
+  },
+
+  emitOpenBackClick: function() {
+    this.$.openBack.tap();
+    this.emitClick();
+    //this.$.unlockBack.setDisabled(true);
+    //this.$.lockBack.setDisabled(false);
+    this.value = "open-back";
   },
 
   /*
