@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.phonegap.example"
+        versionCode="10" 
+        version   = "1.0.0">
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>HSL Lock</name>
+
+    <description>
+	Locks and unlocks doors at HSL. 
+    </description>
+
+    <author href="https://github.com/traversbuda/hsllock" email="tkbuda@gmail.com">
+	Ryan Rix
+	Travers Buda
+    </author>
+
+</widget>
