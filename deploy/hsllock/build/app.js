@@ -1,7 +1,7 @@
 
 // minifier: path aliases
 
-enyo.path.addPaths({layout: "/home/travers/hsllock/enyo/../lib/layout/", onyx: "/home/travers/hsllock/enyo/../lib/onyx/", onyx: "/home/travers/hsllock/enyo/../lib/onyx/source/"});
+enyo.path.addPaths({layout: "/srv/http/hsllock/enyo/../lib/layout/", onyx: "/srv/http/hsllock/enyo/../lib/onyx/", onyx: "/srv/http/hsllock/enyo/../lib/onyx/source/"});
 
 // FittableLayout.js
 
