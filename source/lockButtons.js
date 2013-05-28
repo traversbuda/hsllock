@@ -25,9 +25,12 @@ enyo.kind({
         ],
 
         onLockButtonToggle: function(iSender, inEvent) {
-                //this.$.lockButton.getValue();
-                //lthis.bubble("onLockButtonToggle");
-                return false;
+                enyo.Signals.send("onLockButtonToggle", this);
+                return true;
+        },
+
+        getLockButton: function() {
+                return this.$.lockButton;
         }
 });
 

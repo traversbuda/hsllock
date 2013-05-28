@@ -9,13 +9,20 @@ enyo.kind({
       classes: "enyo-fit",
       components: [
         {
-          kind: "HslLocks.Buttons",
-          onclick: "lockGroupClick",
-          name: "lockGroup"
+          kind: "lockToggle",
+	  label: "Front Door",
+          name: "lockToggleFront",
+	  div: "margin-left:auto; margin-right:auto;"
+        },
+        {
+          kind: "lockToggle",
+	  label: "Back Door",
+          name: "lockToggleBack",
+	  div: "margin 0 auto; left: 50%;" //I have no idea what I'm doing
         },
         {
           tag: "h1",
-          content: "Who's in the Space?",
+          content: "who's in the Space?",
           style: 'text-align: center;'
         },
         {
@@ -41,8 +48,29 @@ enyo.kind({
       kind: "HslLocks.LoginPopup",
       name: "loginPopup",
       onLoginChanged: "loadLoginData"
-    }
+    },
+    {kind: "Signals", onLockButtonToggle: "lockButtonToggle"}
   ],
+
+  //TODO
+  lockButtonToggle: function(iSender, inEvent) {
+      if (inEvent.name === "lockToggleFront") {
+      	if (inEvent.getLockButton().getValue() === true) {
+	  alert("lock the front");
+	}	
+      	else if (inEvent.getLockButton().getValue() === false) {
+	  alert("un lock the front");
+	}	
+      }
+      if (inEvent.name === "lockToggleBack") {
+      	if (inEvent.getLockButton().getValue() === true) {
+	  alert("lock the back");
+	}	
+      	else if (inEvent.getLockButton().getValue() === false) {
+	  alert("un lock the back");
+	}	
+      }
+  },
 
   rendered: function() {
     this.inherited(arguments);
