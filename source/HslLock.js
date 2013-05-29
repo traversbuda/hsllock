@@ -79,22 +79,13 @@ enyo.kind({
 
     this.getCurrentStatus();
 
-    // Blocking timer to prevent people from busting the server jamming on
-    // buttons
-    //TODO server side should be responsible for this
-    this.jamLock = true;
-
     // This refreshes the screen every 5 seconds
     setInterval( enyo.bind(this, this.getCurrentStatus), 5000);
-
-    // In webOS this makes the loading screen go away
-    // FIXME: Can we make this go away with phonegap.js?
-    if( window.PalmSystem ) {
-      window.PalmSystem.stageReady();
-    }
   },
 
+
   nextState: function() {
+    alert("next state being called, whatever the heck this does...?");
     if(this.state === 0) {
       this.initState();
     }
@@ -123,19 +114,6 @@ enyo.kind({
     this.statusAjaxEndpoint.go();
   },
 
-  /*
-   * This function handles updating the UI based on the currentStatus
-   */
-  updateColor: function() {
-    var color;
-    if(this.currentStatus == "1"){
-      color = "red";
-    } else {
-      color = "green";
-    }
-    document.body.style.backgroundColor = color;
-  },
-
   getCurrentStatus: function() {
     // FIXME: Move this to create somehow
     this.statusAjaxEndpoint = new enyo.Ajax({ url: this.spaceAPIEndpoint});
@@ -153,11 +131,7 @@ enyo.kind({
 
     if(lockStatus.length > 0) {
       this.currentStatus = lockStatus;
-      this.updateColor();
     }
-
-    this.jamLock = true;
-    this.updateColor();
 
     this.$.scrim.hide();
   },
@@ -172,7 +146,6 @@ enyo.kind({
     this.lockAjaxEndpoint = new enyo.Ajax({url: this.url});
     this.lockAjaxEndpoint.go({user: this.username, pass: this.password, cmd: this.$.lockGroup.value});
     this.lockAjaxEndpoint.handleAs = "text";
-    this.jamLock = false;
   },
 
   showPopup: function() {
