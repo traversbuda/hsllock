@@ -54,6 +54,7 @@ enyo.kind( {
       this.pamelaItems[i] = this.$.peopleList.createComponent({content: "No one... :("} );
     } else {
       for( var i = 0; i < data.length; i++) {
+	console.log(data[i]);
         if( !/^\./.exec(data[i]) ) {
           this.pamelaItems.push( this.$.peopleList.createComponent({content: data[i]} ) );
         }

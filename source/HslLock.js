@@ -77,24 +77,17 @@ enyo.kind({
 
     this.loadLoginData();
 
+    this.$.scrim.show();
     this.getCurrentStatus();
 
     // This refreshes the screen every 5 seconds
     setInterval( enyo.bind(this, this.getCurrentStatus), 5000);
   },
 
-
-  nextState: function() {
-    alert("next state being called, whatever the heck this does...?");
-    if(this.state === 0) {
-      this.initState();
-    }
-  },
-
   loadLoginData: function() {
     // Pull login data from HTML5 localStorage, open the popup if it doesn't
     // exist.
-    var loginData = localStorage.getItem("hsllock_loginData");
+    var loginlata = localStorage.getItem("hsllock_loginData");
     if(loginData) {
       loginData              = loginData.split("|");
       this.username          = loginData[0];
@@ -125,19 +118,33 @@ enyo.kind({
   },
 
   statusRetrieved: function(inRequest, inResponse) {
-    console.log("got new status.");
 
-    var lockStatus = inResponse.open ? "0" : "1";
+    var doorsOpen = inResponse.doors_open;
 
-    if(lockStatus.length > 0) {
-      this.currentStatus = lockStatus;
+    console.log("Got new lock status of", doorsOpen);
+    
+    //TODO hook up with API, atleast "both" is correct
+    if (doorsOpen === "both") {
+	this.lockToggleBack.getLockButton().setValue(false);
+	this.lockToggleFront.getLockButton().setValue(false);
     }
-
+    else if (doorsOpen === "front") {
+	this.lockToggleFront.getLockButton().setValue(false);
+	this.lockToggleBack.getLockButton().setValue(true);
+    }
+    else if (doorsOpen === "back") {
+	this.lockToggleBack.getLockButton().setValue(false);
+	this.lockToggleFront.getLockButton().setValue(true);
+    }
+    else if (doorsOpen === "none") {
+	this.lockToggleBack.getLockButton().setValue(true);
+	this.lockToggleFront.getLockButton().setValue(true);
+    }
+    else {
+	alert("Could not determine doors locked/unlocked.");
+    }
+	 
     this.$.scrim.hide();
-  },
-
-  lockGroupClick: function(inSender, e) {
-      this.sendServerCommand();
   },
 
   sendServerCommand: function() {
