@@ -5,7 +5,7 @@ enyo.kind( {
   style: "text-align: center; margin-top: 140px; margin-bottom: 35px;",
 
   published: {
-    url: "http://heatsynclabs.org:1337/data.php"
+    url: "http://members.heatsynclabs.org/macs.json"
   },
 
   components: [
